@@ -1,9 +1,13 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🏋️ FitTrack</h1>
+    <div>
+      <Navbar />
 
-      <h2>Today's Workout: Leg Day</h2>
+      <h1>Welcome Back!</h1>
+
+      <h2>Today's Workout: Leg Day 🦵</h2>
 
       <h3>Daily Goals</h3>
 
