@@ -8,15 +8,29 @@ function App() {
   const [water, setWater] = useState(false);
   const [sleep, setSleep] = useState(false);
 
+  const completedGoals =
+    (workout ? 1 : 0) +
+    (protein ? 1 : 0) +
+    (water ? 1 : 0) +
+    (sleep ? 1 : 0);
+
   return (
     <div>
       <Navbar />
 
       <div className="container">
-        <h2>Today's Workout: Leg Day 🦵</h2>
+        <div className="card">
+          <h2>Today's Workout: Leg Day 🦵</h2>
+        </div>
 
         <div className="card">
           <h3>Daily Goals</h3>
+
+          <h3>Progress: {completedGoals} / 4</h3>
+
+          {completedGoals === 4 && (
+            <p>🎉 All goals completed today!</p>
+          )}
 
           <div>
             <input
@@ -53,6 +67,11 @@ function App() {
             />
             Sleep 8 Hours
           </div>
+        </div>
+
+        <div className="card">
+          <h3>Current Streak 🔥</h3>
+          <p>1 Day</p>
         </div>
       </div>
     </div>
