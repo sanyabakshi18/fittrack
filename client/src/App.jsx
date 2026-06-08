@@ -1,29 +1,58 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
+  const [workout, setWorkout] = useState(false);
+  const [protein, setProtein] = useState(false);
+  const [water, setWater] = useState(false);
+  const [sleep, setSleep] = useState(false);
+
   return (
     <div>
       <Navbar />
 
       <div className="container">
-        <div className="card">
-          <h2>Today's Workout: Leg Day 🦵</h2>
-        </div>
+        <h2>Today's Workout: Leg Day 🦵</h2>
 
         <div className="card">
           <h3>Daily Goals</h3>
-          <ul>
-            <li>☐ Complete Workout</li>
-            <li>☐ Consume 200g Protein</li>
-            <li>☐ Drink 3L Water</li>
-            <li>☐ Sleep 8 Hours</li>
-          </ul>
-        </div>
 
-        <div className="card">
-          <h3>Current Streak 🔥</h3>
-          <p>1 Day</p>
+          <div>
+            <input
+              type="checkbox"
+              checked={workout}
+              onChange={() => setWorkout(!workout)}
+            />
+            Complete Workout
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              checked={protein}
+              onChange={() => setProtein(!protein)}
+            />
+            Consume 200g Protein
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              checked={water}
+              onChange={() => setWater(!water)}
+            />
+            Drink 3L Water
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              checked={sleep}
+              onChange={() => setSleep(!sleep)}
+            />
+            Sleep 8 Hours
+          </div>
         </div>
       </div>
     </div>
