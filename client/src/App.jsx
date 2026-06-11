@@ -1,12 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
-  const [workout, setWorkout] = useState(false);
-  const [protein, setProtein] = useState(false);
-  const [water, setWater] = useState(false);
-  const [sleep, setSleep] = useState(false);
+  const [workout, setWorkout] = useState(() => {
+  return localStorage.getItem("workout") === "true";
+});
+
+const [protein, setProtein] = useState(() => {
+  return localStorage.getItem("protein") === "true";
+});
+
+const [water, setWater] = useState(() => {
+  return localStorage.getItem("water") === "true";
+});
+
+const [sleep, setSleep] = useState(() => {
+  return localStorage.getItem("sleep") === "true";
+});
+ useEffect(() => {
+  localStorage.setItem("workout", workout);
+}, [workout]);
+
+useEffect(() => {
+  localStorage.setItem("protein", protein);
+}, [protein]);
+
+useEffect(() => {
+  localStorage.setItem("water", water);
+}, [water]);
+
+useEffect(() => {
+  localStorage.setItem("sleep", sleep);
+}, [sleep]);
 
   const completedGoals =
     (workout ? 1 : 0) +
@@ -24,50 +50,63 @@ function App() {
         </div>
 
         <div className="card">
-          <h3>Daily Goals</h3>
+  <h3>Daily Goals</h3>
 
-          <h3>Progress: {completedGoals} / 4</h3>
+  <h3>Progress: {completedGoals} / 4</h3>
 
-          {completedGoals === 4 && (
-            <p>🎉 All goals completed today!</p>
-          )}
+  {completedGoals === 4 && (
+    <p>🎉 All goals completed today!</p>
+  )}
 
-          <div>
-            <input
-              type="checkbox"
-              checked={workout}
-              onChange={() => setWorkout(!workout)}
-            />
-            Complete Workout
-          </div>
+  <div>
+    <input
+      type="checkbox"
+      checked={workout}
+      onChange={() => setWorkout(!workout)}
+    />
+    Complete Workout
+  </div>
 
-          <div>
-            <input
-              type="checkbox"
-              checked={protein}
-              onChange={() => setProtein(!protein)}
-            />
-            Consume 200g Protein
-          </div>
+  <div>
+    <input
+      type="checkbox"
+      checked={protein}
+      onChange={() => setProtein(!protein)}
+    />
+    Consume 200g Protein
+  </div>
 
-          <div>
-            <input
-              type="checkbox"
-              checked={water}
-              onChange={() => setWater(!water)}
-            />
-            Drink 3L Water
-          </div>
+  <div>
+    <input
+      type="checkbox"
+      checked={water}
+      onChange={() => setWater(!water)}
+    />
+    Drink 3L Water
+  </div>
 
-          <div>
-            <input
-              type="checkbox"
-              checked={sleep}
-              onChange={() => setSleep(!sleep)}
-            />
-            Sleep 8 Hours
-          </div>
-        </div>
+  <div>
+    <input
+      type="checkbox"
+      checked={sleep}
+      onChange={() => setSleep(!sleep)}
+    />
+    Sleep 8 Hours
+  </div>
+
+  {/* ADD BUTTON HERE */}
+  <button
+    onClick={() => {
+      setWorkout(false);
+      setProtein(false);
+      setWater(false);
+      setSleep(false);
+    }}
+  >
+    Reset Day
+  </button>
+
+</div>
 
         <div className="card">
           <h3>Current Streak 🔥</h3>
