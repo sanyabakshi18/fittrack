@@ -49,6 +49,7 @@ function App() {
     (protein ? 1 : 0) +
     (water ? 1 : 0) +
     (sleep ? 1 : 0);
+    const progressPercentage = (completedGoals / 4) * 100;
 
   useEffect(() => {
     if (completedGoals === 4 && streak === 0) {
@@ -64,11 +65,48 @@ function App() {
         <div className="card">
           <h2>Today's Workout: Leg Day 🦵</h2>
         </div>
+        <div className="hero-card">
+  <h1>🔥 FitTrack</h1>
+  <p>Build consistency. Build strength.</p>
+
+  <h2>{streak} Day{streak !== 1 ? "s" : ""} Streak</h2>
+
+  <p>
+    {completedGoals}/4 goals completed today
+  </p>
+</div>
+<div className="card">
+  <h3>🏆 Achievements</h3>
+
+  <div className="achievement-grid">
+    <div className="achievement">
+      🥉 First Workout
+    </div>
+
+    <div className="achievement">
+      💧 Hydration Hero
+    </div>
+
+    <div className="achievement">
+      🍗 Protein Master
+    </div>
+
+    <div className="achievement">
+      🔥 Consistency Beast
+    </div>
+  </div>
+</div>
 
         <div className="card">
           <h3>Daily Goals</h3>
 
           <h3>Progress: {completedGoals} / 4</h3>
+          <div className="progress-bar">
+  <div
+    className="progress-fill"
+    style={{ width: `${progressPercentage}%` }}
+  ></div>
+</div>
 
           {completedGoals === 4 && (
             <p>🎉 All goals completed today!</p>
