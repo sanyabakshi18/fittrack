@@ -56,6 +56,21 @@ function App() {
       setStreak(1);
     }
   }, [completedGoals, streak]);
+  const workoutSchedule = {
+  Monday: "Chest Day 💪",
+  Tuesday: "Back Day 🦍",
+  Wednesday: "Leg Day 🦵",
+  Thursday: "Shoulder Day ⚡",
+  Friday: "Arm Day 💥",
+  Saturday: "Cardio Day 🏃",
+  Sunday: "Cheat & Recovery Day 🍕",
+};
+const today = new Date().toLocaleDateString("en-US", {
+  weekday: "long",
+});
+
+const todaysWorkout = workoutSchedule[today];
+
 
   return (
     <div>
@@ -63,7 +78,8 @@ function App() {
 
       <div className="container">
         <div className="card">
-          <h2>Today's Workout: Leg Day 🦵</h2>
+         <h2>Today's Workout</h2>
+<p>{todaysWorkout}</p>
         </div>
         <div className="hero-card">
   <h1>🔥 FitTrack</h1>
