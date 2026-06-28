@@ -23,6 +23,21 @@ function App() {
   const [streak, setStreak] = useState(() => {
     return Number(localStorage.getItem("streak")) || 0;
   });
+  const [workoutSchedule, setWorkoutSchedule] = useState(() => {
+  const savedSchedule = localStorage.getItem("workoutSchedule");
+
+  return savedSchedule
+    ? JSON.parse(savedSchedule)
+    : {
+        Monday: "Chest Day 💪",
+        Tuesday: "Back Day 🦍",
+        Wednesday: "Leg Day 🦵",
+        Thursday: "Shoulder Day ⚡",
+        Friday: "Arm Day 💥",
+        Saturday: "Cardio Day 🏃",
+        Sunday: "Cheat & Recovery Day 🍕",
+      };
+});
 
   useEffect(() => {
     localStorage.setItem("workout", workout);
@@ -43,6 +58,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem("streak", streak);
   }, [streak]);
+  useEffect(() => {
+  localStorage.setItem(
+    "workoutSchedule",
+    JSON.stringify(workoutSchedule)
+  );
+}, [workoutSchedule]);
 
   const completedGoals =
     (workout ? 1 : 0) +
@@ -56,15 +77,7 @@ function App() {
       setStreak(1);
     }
   }, [completedGoals, streak]);
-  const workoutSchedule = {
-  Monday: "Chest Day 💪",
-  Tuesday: "Back Day 🦍",
-  Wednesday: "Leg Day 🦵",
-  Thursday: "Shoulder Day ⚡",
-  Friday: "Arm Day 💥",
-  Saturday: "Cardio Day 🏃",
-  Sunday: "Cheat & Recovery Day 🍕",
-};
+  
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
 });
@@ -111,6 +124,26 @@ const todaysWorkout = workoutSchedule[today];
       🔥 Consistency Beast
     </div>
   </div>
+  <div className="card">
+  <h3>📅 Edit Workout Schedule</h3>
+
+  {Object.keys(workoutSchedule).map((day) => (
+    <div key={day} style={{ marginBottom: "10px" }}>
+      <label>{day}: </label>
+
+      <input
+        type="text"
+        value={workoutSchedule[day]}
+        onChange={(e) =>
+          setWorkoutSchedule({
+            ...workoutSchedule,
+            [day]: e.target.value,
+          })
+        }
+      />
+    </div>
+  ))}
+</div>
 </div>
 
         <div className="card">
