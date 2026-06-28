@@ -23,6 +23,13 @@ function App() {
   const [streak, setStreak] = useState(() => {
     return Number(localStorage.getItem("streak")) || 0;
   });
+  const [proteinIntake, setProteinIntake] = useState(() => {
+  return Number(localStorage.getItem("proteinIntake")) || 0;
+});
+const [waterIntake, setWaterIntake] = useState(() => {
+  return Number(localStorage.getItem("waterIntake")) || 0;
+});
+
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
   const savedSchedule = localStorage.getItem("workoutSchedule");
 
@@ -59,11 +66,18 @@ function App() {
     localStorage.setItem("streak", streak);
   }, [streak]);
   useEffect(() => {
+  localStorage.setItem("proteinIntake", proteinIntake);
+}, [proteinIntake]);
+useEffect(() => {
+  localStorage.setItem("waterIntake", waterIntake);
+}, [waterIntake]);
+  useEffect(() => {
   localStorage.setItem(
     "workoutSchedule",
     JSON.stringify(workoutSchedule)
   );
 }, [workoutSchedule]);
+
 
   const completedGoals =
     (workout ? 1 : 0) +
@@ -83,6 +97,8 @@ const today = new Date().toLocaleDateString("en-US", {
 });
 
 const todaysWorkout = workoutSchedule[today];
+const proteinGoal= 150;
+const waterGoal= 3000;
 
 
   return (
@@ -124,6 +140,60 @@ const todaysWorkout = workoutSchedule[today];
       🔥 Consistency Beast
     </div>
   </div>
+  <div className="card">
+  <h3>🍗 Protein Tracker</h3>
+
+  <h2>
+    {proteinIntake} / {proteinGoal}g
+  </h2>
+
+  <div className="progress-bar">
+    <div
+      className="progress-fill"
+      style={{
+        width: `${Math.min(
+          (proteinIntake / proteinGoal) * 100,
+          100
+        )}%`,
+      }}
+    ></div>
+  </div>
+
+  <button
+    onClick={() =>
+      setProteinIntake(proteinIntake + 25)
+    }
+  >
+    +25g Protein
+  </button>
+</div>
+<div className="card">
+  <h3>💧 Water Tracker</h3>
+
+  <h2>
+    {waterIntake} / {waterGoal} ml
+  </h2>
+
+  <div className="progress-bar">
+    <div
+      className="progress-fill"
+      style={{
+        width: `${Math.min(
+          (waterIntake / waterGoal) * 100,
+          100
+        )}%`,
+      }}
+    ></div>
+  </div>
+
+  <button
+    onClick={() =>
+      setWaterIntake(waterIntake + 250)
+    }
+  >
+    +250 ml
+  </button>
+</div>
   <div className="card">
   <h3>📅 Edit Workout Schedule</h3>
 
