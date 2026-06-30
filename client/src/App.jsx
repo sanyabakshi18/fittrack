@@ -29,6 +29,13 @@ function App() {
 const [waterIntake, setWaterIntake] = useState(() => {
   return Number(localStorage.getItem("waterIntake")) || 0;
 });
+const [xp, setXp] = useState(() => {
+  return Number(localStorage.getItem("xp")) || 0;
+});
+
+const [level, setLevel] = useState(() => {
+  return Number(localStorage.getItem("level")) || 1;
+});
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
   const savedSchedule = localStorage.getItem("workoutSchedule");
@@ -77,6 +84,28 @@ useEffect(() => {
     JSON.stringify(workoutSchedule)
   );
 }, [workoutSchedule]);
+useEffect(() => {
+  localStorage.setItem("xp", xp);
+}, [xp]);
+
+useEffect(() => {
+  localStorage.setItem("level", level);
+}, [level]);
+useEffect(() => {
+  let earnedXP = 0;
+
+  if (workout) earnedXP += 50;
+  if (proteinIntake >= proteinGoal) earnedXP += 20;
+  if (waterIntake >= waterGoal) earnedXP += 20;
+
+  setXp(earnedXP);
+}, [workout, proteinIntake, waterIntake]);
+useEffect(() => {
+  if (xp >= 100) {
+    setLevel((prev) => prev + 1);
+    setXp(0);
+  }
+}, [xp]);
 
 
   const completedGoals =
@@ -119,6 +148,20 @@ const waterGoal= 3000;
   <p>
     {completedGoals}/4 goals completed today
   </p>
+</div>
+<div className="card">
+  <h3>🏅 Athlete Level</h3>
+
+  <h2>Level {level}</h2>
+
+  <p>{xp} / 100 XP</p>
+
+  <div className="progress-bar">
+    <div
+      className="progress-fill"
+      style={{ width: `${xp}%` }}
+    ></div>
+  </div>
 </div>
 <div className="card">
   <h3>🏆 Achievements</h3>
