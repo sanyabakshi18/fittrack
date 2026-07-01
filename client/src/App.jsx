@@ -36,9 +36,25 @@ const [xp, setXp] = useState(() => {
 const [level, setLevel] = useState(() => {
   return Number(localStorage.getItem("level")) || 1;
 });
+const [name, setName] = useState(() => {
+  return localStorage.getItem("name") || "";
+});
+
+const [weight, setWeight] = useState(() => {
+  return localStorage.getItem("weight") || "";
+});
+
+const [height, setHeight] = useState(() => {
+  return localStorage.getItem("height") || "";
+});
+
+const [goal, setGoal] = useState(() => {
+  return localStorage.getItem("goal") || "Muscle Gain";
+});
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
   const savedSchedule = localStorage.getItem("workoutSchedule");
+  
 
   return savedSchedule
     ? JSON.parse(savedSchedule)
@@ -106,6 +122,21 @@ useEffect(() => {
     setXp(0);
   }
 }, [xp]);
+useEffect(() => {
+  localStorage.setItem("name", name);
+}, [name]);
+
+useEffect(() => {
+  localStorage.setItem("weight", weight);
+}, [weight]);
+
+useEffect(() => {
+  localStorage.setItem("height", height);
+}, [height]);
+
+useEffect(() => {
+  localStorage.setItem("goal", goal);
+}, [goal]);
 
 
   const completedGoals =
@@ -126,8 +157,17 @@ const today = new Date().toLocaleDateString("en-US", {
 });
 
 const todaysWorkout = workoutSchedule[today];
-const proteinGoal= 150;
-const waterGoal= 3000;
+const proteinGoal =
+  weight && goal === "Muscle Gain"
+    ? Math.round(weight * 2)
+    : weight && goal === "Fat Loss"
+    ? Math.round(weight * 1.8)
+    : weight
+    ? Math.round(weight * 1.5)
+    : 150;
+const waterGoal = weight
+  ? Math.round(weight * 35)
+  : 3000;
 
 
   return (
@@ -140,7 +180,9 @@ const waterGoal= 3000;
 <p>{todaysWorkout}</p>
         </div>
         <div className="hero-card">
-  <h1>🔥 FitTrack</h1>
+  <h1>
+  🔥 {name ? `Welcome, ${name}` : "FitTrack"}
+</h1>
   <p>Build consistency. Build strength.</p>
 
   <h2>{streak} Day{streak !== 1 ? "s" : ""} Streak</h2>
@@ -148,6 +190,52 @@ const waterGoal= 3000;
   <p>
     {completedGoals}/4 goals completed today
   </p>
+</div>
+<div className="card">
+  <h3>🎯 Your Goals</h3>
+
+  <p>Protein Goal: {proteinGoal}g</p>
+  <p>Water Goal: {waterGoal}ml</p>
+  <p>Fitness Goal: {goal}</p>
+</div>
+<div className="card">
+  <h3>👤 Profile</h3>
+
+  <input
+    type="text"
+    placeholder="Name"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+  />
+
+  <br /><br />
+
+  <input
+    type="number"
+    placeholder="Weight (kg)"
+    value={weight}
+    onChange={(e) => setWeight(e.target.value)}
+  />
+
+  <br /><br />
+
+  <input
+    type="number"
+    placeholder="Height (cm)"
+    value={height}
+    onChange={(e) => setHeight(e.target.value)}
+  />
+
+  <br /><br />
+
+  <select
+    value={goal}
+    onChange={(e) => setGoal(e.target.value)}
+  >
+    <option>Muscle Gain</option>
+    <option>Fat Loss</option>
+    <option>Maintenance</option>
+  </select>
 </div>
 <div className="card">
   <h3>🏅 Athlete Level</h3>
