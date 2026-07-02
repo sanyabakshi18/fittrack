@@ -173,13 +173,15 @@ const waterGoal = weight
   return (
     <div>
       <Navbar />
+      
 
       <div className="container">
         <div className="card">
          <h2>Today's Workout</h2>
 <p>{todaysWorkout}</p>
         </div>
-        <div className="hero-card">
+        
+       <div className="hero-card">
   <h1>
   🔥 {name ? `Welcome, ${name}` : "FitTrack"}
 </h1>
@@ -191,13 +193,7 @@ const waterGoal = weight
     {completedGoals}/4 goals completed today
   </p>
 </div>
-<div className="card">
-  <h3>🎯 Your Goals</h3>
 
-  <p>Protein Goal: {proteinGoal}g</p>
-  <p>Water Goal: {waterGoal}ml</p>
-  <p>Fitness Goal: {goal}</p>
-</div>
 <div className="card">
   <h3>👤 Profile</h3>
 
@@ -237,40 +233,18 @@ const waterGoal = weight
     <option>Maintenance</option>
   </select>
 </div>
-<div className="card">
-  <h3>🏅 Athlete Level</h3>
 
-  <h2>Level {level}</h2>
+ <div className="card">
+  <h3>🎯 Your Goals</h3>
 
-  <p>{xp} / 100 XP</p>
-
-  <div className="progress-bar">
-    <div
-      className="progress-fill"
-      style={{ width: `${xp}%` }}
-    ></div>
-  </div>
+  <p>Protein Goal: {proteinGoal}g</p>
+  <p>Water Goal: {waterGoal}ml</p>
+  <p>Fitness Goal: {goal}</p>
 </div>
-<div className="card">
-  <h3>🏆 Achievements</h3>
 
-  <div className="achievement-grid">
-    <div className="achievement">
-      🥉 First Workout
-    </div>
+<div className="dashboard-grid">
 
-    <div className="achievement">
-      💧 Hydration Hero
-    </div>
 
-    <div className="achievement">
-      🍗 Protein Master
-    </div>
-
-    <div className="achievement">
-      🔥 Consistency Beast
-    </div>
-  </div>
   <div className="card">
   <h3>🍗 Protein Tracker</h3>
 
@@ -289,6 +263,7 @@ const waterGoal = weight
       }}
     ></div>
   </div>
+ 
 
   <button
     onClick={() =>
@@ -316,6 +291,7 @@ const waterGoal = weight
       }}
     ></div>
   </div>
+  
 
   <button
     onClick={() =>
@@ -325,29 +301,49 @@ const waterGoal = weight
     +250 ml
   </button>
 </div>
-  <div className="card">
-  <h3>📅 Edit Workout Schedule</h3>
+</div>
 
-  {Object.keys(workoutSchedule).map((day) => (
-    <div key={day} style={{ marginBottom: "10px" }}>
-      <label>{day}: </label>
+  
+<div className="card">
+  <h3>🏅 Athlete Level</h3>
 
-      <input
-        type="text"
-        value={workoutSchedule[day]}
-        onChange={(e) =>
-          setWorkoutSchedule({
-            ...workoutSchedule,
-            [day]: e.target.value,
-          })
-        }
-      />
+  <h2>Level {level}</h2>
+
+  <p>{xp} / 100 XP</p>
+
+  <div className="progress-bar">
+    <div
+      className="progress-fill"
+      style={{ width: `${xp}%` }}
+    ></div>
+  
+
+  <p>
+    {100 - xp} XP to next level
+  </p>
+</div>
+</div>
+<div className="card">
+  <h3>🏆 Achievements</h3>
+
+  <div className="achievement-grid">
+    <div className="achievement">
+      🥉 First Workout
     </div>
-  ))}
-</div>
-</div>
 
-        <div className="card">
+    <div className="achievement">
+      💧 Hydration Hero
+    </div>
+
+    <div className="achievement">
+      🍗 Protein Master
+    </div>
+
+    <div className="achievement">
+      🔥 Consistency Beast
+    </div>
+  </div>
+  <div className="card">
           <h3>Daily Goals</h3>
 
           <h3>Progress: {completedGoals} / 4</h3>
@@ -407,6 +403,29 @@ const waterGoal = weight
         </div>
       </div>
     </div>
+  <div className="card">
+  <h3>📅 Edit Workout Schedule</h3>
+
+  {Object.keys(workoutSchedule).map((day) => (
+    <div key={day} style={{ marginBottom: "10px" }}>
+      <label>{day}: </label>
+
+      <input
+        type="text"
+        value={workoutSchedule[day]}
+        onChange={(e) =>
+          setWorkoutSchedule({
+            ...workoutSchedule,
+            [day]: e.target.value,
+          })
+        }
+      />
+    </div>
+  ))}
+</div>
+</div>
+
+        
   );
 }
 
