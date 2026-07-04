@@ -51,6 +51,9 @@ const [height, setHeight] = useState(() => {
 const [goal, setGoal] = useState(() => {
   return localStorage.getItem("goal") || "Muscle Gain";
 });
+const [notes, setNotes] = useState(() => {
+  return localStorage.getItem("notes") || "";
+});
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
   const savedSchedule = localStorage.getItem("workoutSchedule");
@@ -137,6 +140,9 @@ useEffect(() => {
 useEffect(() => {
   localStorage.setItem("goal", goal);
 }, [goal]);
+useEffect(() => {
+  localStorage.setItem("notes", notes);
+}, [notes]);
 
 
   const completedGoals =
@@ -168,7 +174,40 @@ const proteinGoal =
 const waterGoal = weight
   ? Math.round(weight * 35)
   : 3000;
+  const bmi =
+  weight && height
+    ? (
+        Number(weight) /
+        Math.pow(Number(height) / 100, 2)
+      ).toFixed(1)
+    : null;
+    
+let bmiCategory = "";
 
+if (bmi) {
+  if (bmi < 18.5) bmiCategory = "Underweight";
+  else if (bmi < 25) bmiCategory = "Healthy Weight";
+  else if (bmi < 30) bmiCategory = "Overweight";
+  else bmiCategory = "Obese";
+}
+const achievements = [
+  {
+    title: "🥉 First Workout",
+    unlocked: workout,
+  },
+  {
+    title: "💧 Hydration Hero",
+    unlocked: waterIntake >= waterGoal,
+  },
+  {
+    title: "🍗 Protein Master",
+    unlocked: proteinIntake >= proteinGoal,
+  },
+  {
+    title: "🔥 Consistency Beast",
+    unlocked: streak >= 7,
+  },
+];
 
   return (
     <div>
@@ -233,7 +272,21 @@ const waterGoal = weight
     <option>Maintenance</option>
   </select>
 </div>
+<div className="card">
+  <h3>📊 BMI Calculator</h3>
 
+  {bmi ? (
+    <>
+      <h2>{bmi}</h2>
+
+      <p>{bmiCategory}</p>
+    </>
+  ) : (
+    <p>
+      Enter weight and height to calculate BMI.
+    </p>
+  )}
+</div>
  <div className="card">
   <h3>🎯 Your Goals</h3>
 
@@ -241,6 +294,7 @@ const waterGoal = weight
   <p>Water Goal: {waterGoal}ml</p>
   <p>Fitness Goal: {goal}</p>
 </div>
+
 
 <div className="dashboard-grid">
 
@@ -301,7 +355,7 @@ const waterGoal = weight
     +250 ml
   </button>
 </div>
-</div>
+
 
   
 <div className="card">
@@ -316,33 +370,28 @@ const waterGoal = weight
       className="progress-fill"
       style={{ width: `${xp}%` }}
     ></div>
-  
+  </div>
 
-  <p>
-    {100 - xp} XP to next level
-  </p>
+  <p>{100 - xp} XP to next level</p>
 </div>
-</div>
+
 <div className="card">
   <h3>🏆 Achievements</h3>
 
   <div className="achievement-grid">
-    <div className="achievement">
-      🥉 First Workout
-    </div>
-
-    <div className="achievement">
-      💧 Hydration Hero
-    </div>
-
-    <div className="achievement">
-      🍗 Protein Master
-    </div>
-
-    <div className="achievement">
-      🔥 Consistency Beast
-    </div>
+    {achievements.map((achievement) => (
+      <div
+        key={achievement.title}
+        className="achievement"
+      >
+        {achievement.unlocked
+          ? achievement.title
+          : `🔒 ${achievement.title}`}
+      </div>
+    ))}
   </div>
+</div> 
+</div>
   <div className="card">
           <h3>Daily Goals</h3>
 
@@ -402,7 +451,21 @@ const waterGoal = weight
           <p>{streak} Day{streak !== 1 ? "s" : ""}</p>
         </div>
       </div>
-    </div>
+    
+    <div className="card">
+  <h3>📝 Daily Notes</h3>
+
+  <textarea
+    value={notes}
+    onChange={(e) => setNotes(e.target.value)}
+    placeholder="How was today's workout?"
+    rows="5"
+  />
+
+  <p>
+    {notes.length} characters
+  </p>
+</div>
   <div className="card">
   <h3>📅 Edit Workout Schedule</h3>
 

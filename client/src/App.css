@@ -99,3 +99,12 @@ select {
   border-radius: 10px;
   box-sizing: border-box;
 }
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: inherit;
+}
