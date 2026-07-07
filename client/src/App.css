@@ -29,16 +29,15 @@ nav {
   transition: width 0.3s ease;
 }
 .hero-card {
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 20px;
   background: linear-gradient(
     135deg,
     #7c3aed,
     #2563eb
   );
-
   color: white;
-  padding: 30px;
-  border-radius: 24px;
-  margin-bottom: 25px;
 }
 
 .hero-card h1 {
@@ -107,4 +106,37 @@ textarea {
   resize: vertical;
   box-sizing: border-box;
   font-family: inherit;
+}
+.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.dark-mode .card,
+.dark-mode .hero-card {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #333;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+}
+
+.dark-mode button {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode p,
+.dark-mode label {
+  color: #f5f5f5;
 }

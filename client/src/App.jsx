@@ -54,6 +54,10 @@ const [goal, setGoal] = useState(() => {
 const [notes, setNotes] = useState(() => {
   return localStorage.getItem("notes") || "";
 });
+const [darkMode, setDarkMode] = useState(() => {
+  return localStorage.getItem("darkMode") === "true";
+});
+  
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
   const savedSchedule = localStorage.getItem("workoutSchedule");
@@ -143,7 +147,9 @@ useEffect(() => {
 useEffect(() => {
   localStorage.setItem("notes", notes);
 }, [notes]);
-
+useEffect(() => {
+  localStorage.setItem("darkMode", darkMode);
+}, [darkMode]);
 
   const completedGoals =
     (workout ? 1 : 0) +
@@ -210,7 +216,8 @@ const achievements = [
 ];
 
   return (
-    <div>
+    <div className={darkMode ? "dark-mode" : " "}>
+    
       <Navbar />
       
 
@@ -219,6 +226,15 @@ const achievements = [
          <h2>Today's Workout</h2>
 <p>{todaysWorkout}</p>
         </div>
+          <div className="card">
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+  >
+    {darkMode
+      ? "☀️ Switch to Light Mode"
+      : "🌙 Switch to Dark Mode"}
+  </button>
+</div>
         
        <div className="hero-card">
   <h1>
