@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 import GoalCard from "./components/GoalCard";
 import ProfileCard from "./components/ProfileCard";
+import BMICard from "./components/BMICard";
 
 function App() {
   const [workout, setWorkout] = useState(() => {
