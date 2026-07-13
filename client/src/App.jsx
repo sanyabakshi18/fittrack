@@ -6,6 +6,11 @@ import ProfileCard from "./components/ProfileCard";
 import BMICard from "./components/BMICard";
 
 function App() {
+  const [weeklyProgress, setWeeklyProgress] = useState(() => {
+  return JSON.parse(
+    localStorage.getItem("weeklyProgress")
+  ) || {};
+});
   const [workout, setWorkout] = useState(() => {
     return localStorage.getItem("workout") === "true";
   });
@@ -59,6 +64,9 @@ const [notes, setNotes] = useState(() => {
 const [darkMode, setDarkMode] = useState(() => {
   return localStorage.getItem("darkMode") === "true";
 });
+
+
+
   
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
@@ -103,6 +111,23 @@ const [darkMode, setDarkMode] = useState(() => {
 useEffect(() => {
   localStorage.setItem("waterIntake", waterIntake);
 }, [waterIntake]);
+useEffect(() => {
+  localStorage.setItem(
+    "weeklyProgress",
+    JSON.stringify(weeklyProgress)
+  );
+}, [weeklyProgress]);
+useEffect(() => {
+  const today = new Date().toLocaleDateString(
+    "en-US",
+    { weekday: "long" }
+  );
+
+  setWeeklyProgress((prev) => ({
+    ...prev,
+    [today]: completedGoals,
+  }));
+}, [completedGoals]);
   useEffect(() => {
   localStorage.setItem(
     "workoutSchedule",
@@ -182,22 +207,12 @@ const proteinGoal =
 const waterGoal = weight
   ? Math.round(weight * 35)
   : 3000;
-  const bmi =
-  weight && height
-    ? (
-        Number(weight) /
-        Math.pow(Number(height) / 100, 2)
-      ).toFixed(1)
-    : null;
-    
-let bmiCategory = "";
+ 
+  
 
-if (bmi) {
-  if (bmi < 18.5) bmiCategory = "Underweight";
-  else if (bmi < 25) bmiCategory = "Healthy Weight";
-  else if (bmi < 30) bmiCategory = "Overweight";
-  else bmiCategory = "Obese";
-}
+
+
+
 const achievements = [
   {
     title: "🥉 First Workout",
@@ -216,6 +231,22 @@ const achievements = [
     unlocked: streak >= 7,
   },
 ];
+const bmi =
+  weight && height
+    ? (
+        Number(weight) /
+        Math.pow(Number(height) / 100, 2)
+      ).toFixed(1)
+    : null;
+
+let bmiCategory = "";
+
+if (bmi) {
+  if (bmi < 18.5) bmiCategory = "Underweight";
+  else if (bmi < 25) bmiCategory = "Healthy Weight";
+  else if (bmi < 30) bmiCategory = "Overweight";
+  else bmiCategory = "Obese";
+}
 
   return (
     <div className={darkMode ? "dark-mode" : " "}>
@@ -260,6 +291,10 @@ const achievements = [
   setHeight={setHeight}
   goal={goal}
   setGoal={setGoal}
+/>
+<BMICard
+  bmi={bmi}
+  bmiCategory={bmiCategory}
 />
  <div className="card">
   <h3>🎯 Your Goals</h3>
@@ -439,6 +474,23 @@ const achievements = [
   <p>
     {notes.length} characters
   </p>
+</div>
+<div className="card">
+  <h3>📈 Weekly Progress</h3>
+
+  {[
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ].map((day) => (
+    <p key={day}>
+      {day}: {weeklyProgress[day] || 0}/4
+    </p>
+  ))}
 </div>
   <div className="card">
   <h3>📅 Edit Workout Schedule</h3>
