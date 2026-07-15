@@ -1,3 +1,13 @@
+@media (max-width: 768px) {
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .stat-box {
+    width: 100%;
+    max-width: 140px;
+  }
+}
 nav {
   background-color: #222;
   color: white;
@@ -227,9 +237,9 @@ button:hover {
 }
 .hero-stats {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   gap: 15px;
+  flex-wrap: wrap;
   margin-top: 20px;
 }
 
@@ -237,6 +247,8 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 110px;
+  
 
   flex: 1;
 
@@ -301,6 +313,12 @@ button:hover {
 }
 .card,
 .hero-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+.card input,
+.card select,
+.card textarea {
   width: 100%;
   box-sizing: border-box;
 }
