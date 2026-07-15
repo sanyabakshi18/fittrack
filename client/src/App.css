@@ -61,6 +61,7 @@ nav {
   margin: 8px;
   text-align: center;
   background: rgba(255,255,255,0.05);
+  color: black;
 }
 .achievement.unlocked {
   box-shadow: 0 0 15px rgba(255,215,0,0.5);
@@ -288,4 +289,18 @@ button:hover {
 }
 .dark .achievement {
   background: #2a2a2a;
+}
+.dark .achievement {
+  background: #2a2a2a;
+  color: white;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.card,
+.hero-card {
+  width: 100%;
+  box-sizing: border-box;
 }

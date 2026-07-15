@@ -259,14 +259,17 @@ const achievements = [
     title: "🥉 First Workout",
     unlocked: workout,
   },
+
   {
     title: "💧 Hydration Hero",
     unlocked: waterIntake >= waterGoal,
   },
+
   {
     title: "🍗 Protein Master",
     unlocked: proteinIntake >= proteinGoal,
   },
+
   {
     title: "🔥 Consistency Beast",
     unlocked: streak >= 7,
@@ -350,11 +353,11 @@ if (bmi) {
 </div>
 
  <div className="stat-box">
-  <div className="stat-icon">💧</div>
+  <div className="stat-icon">🎯</div>
 
   <div>
-    <h3>{waterGoal}ml</h3>
-    <p>Water Goal</p>
+    <h3>{goal}</h3>
+    <p>Fitness Goal</p>
   </div>
 </div>
 </div>
@@ -468,13 +471,16 @@ if (bmi) {
   <div className="achievement-grid">
     {achievements.map((achievement) => (
       <div
-        key={achievement.title}
-        className="achievement"
-      >
-        {achievement.unlocked
-          ? achievement.title
-          : `🔒 ${achievement.title}`}
-      </div>
+  className={`achievement ${
+    achievement.unlocked
+      ? "unlocked"
+      : "locked"
+  }`}
+>
+  {achievement.unlocked
+    ? achievement.title
+    : `🔒 ${achievement.title}`}
+</div>
     ))}
   </div>
 </div> 
