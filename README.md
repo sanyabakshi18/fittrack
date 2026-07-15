@@ -104,26 +104,12 @@ Unlock achievements such as:
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots here after uploading them.
-
-### Dashboard
-
-![Dashboard Screenshot]("C:\Users\SANYA\OneDrive\Pictures\Screenshots\Screenshot 2026-07-15 214615.png")
-
-### Dark Mode
-
-![Dark Mode Screenshot](./screenshots/darkmode.png)
-
----
-
 ## 🚀 Installation
 
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone <https://github.com/sanyabakshi18/fittrack>
 ```
 
 Move into the project folder:
