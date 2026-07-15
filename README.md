@@ -110,7 +110,7 @@ Add screenshots here after uploading them.
 
 ### Dashboard
 
-![Dashboard Screenshot](./screenshots/dashboard.png)
+![Dashboard Screenshot]("C:\Users\SANYA\OneDrive\Pictures\Screenshots\Screenshot 2026-07-15 214615.png")
 
 ### Dark Mode
 
