@@ -6,6 +6,9 @@ import ProfileCard from "./components/ProfileCard";
 import BMICard from "./components/BMICard";
 
 function App() {
+  const [lastCompletedDate, setLastCompletedDate] = useState(() => {
+  return localStorage.getItem("lastCompletedDate") || "";
+});
   const [weeklyProgress, setWeeklyProgress] = useState(() => {
   return JSON.parse(
     localStorage.getItem("weeklyProgress")
@@ -67,6 +70,7 @@ const [darkMode, setDarkMode] = useState(() => {
 
 
 
+
   
 
   const [workoutSchedule, setWorkoutSchedule] = useState(() => {
@@ -85,6 +89,12 @@ const [darkMode, setDarkMode] = useState(() => {
         Sunday: "Cheat & Recovery Day 🍕",
       };
 });
+useEffect(() => {
+  localStorage.setItem(
+    "lastCompletedDate",
+    lastCompletedDate
+  );
+}, [lastCompletedDate]);
 
   useEffect(() => {
     localStorage.setItem("workout", workout);
@@ -186,12 +196,41 @@ useEffect(() => {
   }));
 }, [completedGoals]);
     const progressPercentage = (completedGoals / 4) * 100;
+useEffect(() => {
+  if (completedGoals !== 4) return;
 
-  useEffect(() => {
-    if (completedGoals === 4 && streak === 0) {
-      setStreak(1);
-    }
-  }, [completedGoals, streak]);
+  const today = new Date();
+
+  const todayString = today.toDateString();
+
+  if (lastCompletedDate === todayString) {
+    return;
+  }
+
+  if (!lastCompletedDate) {
+    setStreak(1);
+    setLastCompletedDate(todayString);
+    return;
+  }
+
+  const lastDate = new Date(lastCompletedDate);
+
+  const diffTime =
+    today.getTime() - lastDate.getTime();
+
+  const diffDays = Math.floor(
+    diffTime / (1000 * 60 * 60 * 24)
+  );
+
+  if (diffDays === 1) {
+    setStreak((prev) => prev + 1);
+  } else if (diffDays > 1) {
+    setStreak(1);
+  }
+
+  setLastCompletedDate(todayString);
+}, [completedGoals]);
+
   
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "long",
