@@ -272,16 +272,53 @@ if (bmi) {
 </div>
         
        <div className="hero-card">
-  <h1>
-  🔥 {name ? `Welcome, ${name}` : "FitTrack"}
+  <h1 className="hero-title">
+  🔥 Welcome Back, {name || "Athlete"}
 </h1>
-  <p>Build consistency. Build strength.</p>
+<div className="hero-badges">
+  <span className="hero-badge">
+    👑 Level {level} Athlete
+  </span>
 
-  <h2>{streak} Day{streak !== 1 ? "s" : ""} Streak</h2>
+  <span className="hero-badge">
+    🔥 {streak} Day Streak
+  </span>
 
-  <p>
-    {completedGoals}/4 goals completed today
-  </p>
+  <span className="hero-badge">
+    🎯 {completedGoals}/4 Goals Completed
+  </span>
+</div>
+<hr className ="hero-divider"/>
+<div className="hero-stats">
+
+<div className="stat-box">
+  <div className="stat-icon">🍗</div>
+
+  <div>
+    <h3>{proteinGoal}g</h3>
+    <p>Protein Goal</p>
+  </div>
+  </div>
+
+
+ <div className="stat-box">
+  <div className="stat-icon">💧</div>
+
+  <div>
+    <h3>{waterGoal}ml</h3>
+    <p>Water Goal</p>
+  </div>
+</div>
+
+ <div className="stat-box">
+  <div className="stat-icon">💧</div>
+
+  <div>
+    <h3>{waterGoal}ml</h3>
+    <p>Water Goal</p>
+  </div>
+</div>
+</div>
 </div>
 
 <ProfileCard
