@@ -117,17 +117,8 @@ useEffect(() => {
     JSON.stringify(weeklyProgress)
   );
 }, [weeklyProgress]);
-useEffect(() => {
-  const today = new Date().toLocaleDateString(
-    "en-US",
-    { weekday: "long" }
-  );
 
-  setWeeklyProgress((prev) => ({
-    ...prev,
-    [today]: completedGoals,
-  }));
-}, [completedGoals]);
+  
   useEffect(() => {
   localStorage.setItem(
     "workoutSchedule",
@@ -183,6 +174,17 @@ useEffect(() => {
     (protein ? 1 : 0) +
     (water ? 1 : 0) +
     (sleep ? 1 : 0);
+    useEffect(() => {
+  const today = new Date().toLocaleDateString(
+    "en-US",
+    { weekday: "long" }
+  );
+
+  setWeeklyProgress((prev) => ({
+    ...prev,
+    [today]: completedGoals,
+  }));
+}, [completedGoals]);
     const progressPercentage = (completedGoals / 4) * 100;
 
   useEffect(() => {
