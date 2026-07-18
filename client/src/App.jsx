@@ -178,6 +178,29 @@ useEffect(() => {
 useEffect(() => {
   localStorage.setItem("darkMode", darkMode);
 }, [darkMode]);
+useEffect(() => {
+  const today = new Date().toDateString();
+
+  const savedDate =
+    localStorage.getItem("lastLoginDate");
+
+  if (savedDate !== today) {
+    setProteinIntake(0);
+    setWaterIntake(0);
+
+    setWorkout(false);
+    setProtein(false);
+    setWater(false);
+    setSleep(false);
+
+    setNotes("");
+
+    localStorage.setItem(
+      "lastLoginDate",
+      today
+    );
+  }
+}, []);
 
   const completedGoals =
     (workout ? 1 : 0) +
